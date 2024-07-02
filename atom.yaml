@@ -76,12 +76,12 @@ binary_sensor:
     name: "Status"
   - platform: gpio
     name: "Button"
-    disabled_by_default: true
     pin:
       number: GPIO0
       mode: input_pullup
-      inverted: true
+      inverted: true
     icon: 'mdi:button-pointer'
+    disabled_by_default: true
     filters:
       - delayed_on_off: 50ms
     on_press:
