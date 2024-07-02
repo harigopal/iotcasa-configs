@@ -6,7 +6,7 @@ substitutions:
 esphome:
   name: ${device_name}
   friendly_name: ${friendly_name}
-  name_add_mac_suffix: True
+  name_add_mac_suffix: False
   project:
     name: "Generic.2CH"
     version: "1.2"
