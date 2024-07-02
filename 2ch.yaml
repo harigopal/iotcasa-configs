@@ -23,7 +23,7 @@ web_server:
   port: 80
 
 ota:
-  - platform: esphome
+  - platform: esphome
 
 dashboard_import:
   package_import_url: github://mahipat99/ESPY/2ch.yaml
