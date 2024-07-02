@@ -2,7 +2,7 @@ substitutions:
   device_name: "athom-1gang-switch"
   project_name: "Athom Technology.1 Gang Switch"
   project_version: "1.1.1"
-  light_restore_mode: RESTORE_DEFAULT_OFF
+  relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
   name: "${device_name}"
@@ -40,7 +40,7 @@ wifi:
 captive_portal:
 
 dashboard_import:
-  package_import_url: github://athom-tech/athom-configs/athom-sw01.yaml
+  package_import_url: github://mahipat99/ESPY-config/atom.yaml
 
 sensor:
   - platform: uptime
