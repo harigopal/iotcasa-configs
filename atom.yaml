@@ -1,12 +1,13 @@
 substitutions:
   device_name: "athom-1gang-switch"
+  friendly_name: ""
   project_name: "Athom Technology.1 Gang Switch"
   project_version: "1.1.1"
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
   name: "${device_name}"
-  friendly_name: ""
+  friendly_name: "${friendly_name}"
   name_add_mac_suffix: true
   min_version: 2024.6.0
   project:
