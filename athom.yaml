@@ -1,12 +1,13 @@
 substitutions:
   device_name: "iotcasa-1gang-switch"
+  friendly_name: "test"
   project_name: "IOTCASA.1 Gang Switch"
   project_version: "1.2"
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
   name: "${device_name}"
-  friendly_name: ""
+  friendly_name: "${friendly_name}"
   name_add_mac_suffix: true
   min_version: 2024.6.0
   project:
@@ -41,32 +42,11 @@ wifi:
 captive_portal:
 
 dashboard_import:
-  package_import_url: github://athom-tech/athom-configs/athom-sw01.yaml
+  package_import_url: github://mahipat99/ESPY-config/athom.yaml
 
 binary_sensor:
   - platform: status
     name: "Status"
-
-  # Touch Button
-  - platform: gpio
-    pin:
-      inverted: true
-      number: GPIO3
-      mode:
-        input: true
-        pullup: true
-    name: "Button"
-    disabled_by_default: true
-    on_multi_click:
-      - timing:
-          - ON for at most 0.5s
-          - OFF for at least 0.2s
-        then:
-          - light.toggle: light1
-      - timing:
-          - ON for at least 4s
-        then:
-          - button.press: Reset
 
 sensor:
   - platform: uptime
@@ -81,58 +61,24 @@ button:
     name: "Reset"
     id: Reset
 
+  - platform: restart
+    name: "Restart"
+    id: button_restart
+
   - platform: safe_mode
     name: "Safe Mode"
     internal: false
 
-output:
-  # Relay
-  - platform: gpio
-    pin: GPIO13
-    id: relay1
-
-  # Button LED (1.0 = Blue / 0.0 = Red)
-  - platform: esp8266_pwm
-    pin: GPIO14
-    inverted: true
-    id: button_led1
-
-light:
-  - platform: status_led
-    name: "Status LED"
-    disabled_by_default: true
-    pin:
-      number: GPIO0
-      inverted: true
-
-  # Relay
-  - platform: binary
-    name: "Light"
-    id: light1
-    output: relay1
-    restore_mode: ${relay_restore_mode}
-    on_turn_on:
-      - light.turn_on: led1
-    on_turn_off:
-      - light.turn_off: led1
-
-  # Button LED
-  - platform: monochromatic
-    name: "LED"
-    disabled_by_default: true
-    id: led1
-    output: button_led1
-    default_transition_length: 500ms
-
-text_sensor:
-  - platform: wifi_info
-    ip_address:
-      name: "IP Address"
-    ssid:
-      name: "Connected SSID"
-    mac_address:
-      name: "Mac Address"
-
-time:
-  - platform: sntp
-    id: sntp_time
+switch:
+  - platform: gpio
+    name: "Relay 1"
+    id: relay_1
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO12
+    icon: mdi:light-switch
+  - platform: gpio
+    name: "Relay 2"
+    id: relay_2
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO13
+    icon: mdi:lightbulb
