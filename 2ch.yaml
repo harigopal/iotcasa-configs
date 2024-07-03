@@ -1,68 +1,80 @@
 substitutions:
   device_name: "iotcasa-2gang-switch"
-  friendly_namez: "z"
-  project_name: "IOTCASA.2 Gang Switch"
+  friendly_name: ""
+  room: ""
+  project_name: "IOTCasa.2 Gang Switch"
   project_version: "1.2"
+  device_description: "IOTCasa 2 Gang Switch"
   relay_restore_mode: RESTORE_DEFAULT_OFF
+  wifi_fast_connect: "False"
 
 esphome:
-  name: "${device_name}"
-  friendly_name: "${friendly_namez}"
-  name_add_mac_suffix: true
+  name: ${device_name}
+  friendly_name: ${friendly_name}
+  area: "${room}"  
+  name_add_mac_suffix: True
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
 
 esp8266:
   board: esp07s
-  restore_from_flash: true
-  early_pin_init: false
+  early_pin_init: False
+  restore_from_flash: True
 
 preferences:
   flash_write_interval: 1min
 
 api:
 
-logger:
-  baud_rate: 0
-
 ota:
   - platform: esphome
 
+logger:
+  baud_rate: 0
+
 mdns:
-  disabled: false
+  disabled: False
 
 web_server:
   port: 80
 
 wifi:
   ap: {} # This spawns an AP with the device name and mac address with no password.
+  fast_connect: "${wifi_fast_connect}"
+
+# wifi:
+#   ssid: !secret wifi_ssid
+#   password: !secret wifi_password
+#   fast_connect: "${wifi_fast_connect}"
+#   # Enable fallback hotspot (captive portal) in case wifi connection fails
+#   ap:
+#     ssid: "${device_name}"
+#     password: "blablabla"
+#     ap_timeout: 2min
+#   reboot_timeout: 5min
 
 captive_portal:
 
 dashboard_import:
-  package_import_url: github://mahipat99/ESPYz12/2ch.yaml
+  package_import_url: github://mahipat99/ESPY/2ch.yaml
 
-status_led:
-  pin:
-    number: GPIO2
-
-sensor:
-  - platform: uptime
-    name: "Uptime Sensor"
-
-  - platform: wifi_signal
-    name: "${friendly_namez} WiFi Signal"
-    update_interval: 60s
+light:
+  - platform: status_led
+    name: "Status LED"
+    disabled_by_default: True
+    pin: GPIO2
 
 button:
-  - platform: factory_reset
-    name: "Reset"
-    id: Reset
+  - platform: restart
+    name: "Restart"
+    id: button_restart
 
-  - platform: safe_mode
-    name: "Safe Mode"
-    internal: false
+  - platform: factory_reset
+    name: "Factory Reset"
+    id: Reset
+    disabled_by_default: True
 
 switch:
   - platform: gpio
@@ -78,7 +90,6 @@ switch:
     restore_mode: "${relay_restore_mode}"
     pin: GPIO13
     icon: mdi:lightbulb
-    
 
 binary_sensor:
   - platform: status
@@ -86,16 +97,24 @@ binary_sensor:
 
   - platform: gpio
     name: "Button"
-    disabled_by_default: true
     pin:
       number: GPIO0
       mode: input_pullup
-      inverted: true
+      inverted: True
     icon: 'mdi:button-pointer'
     filters:
       - delayed_on_off: 50ms
-    on_press:
-      - switch.toggle: relay_1
+    disabled_by_default: True
+    on_multi_click:
+      - timing:
+          - ON for at most 0.5s
+          - OFF for at least 0.2s
+        then:
+          - switch.toggle: relay_1
+      - timing:
+          - ON for at least 4s
+        then:
+          - button.press: Reset
 
   - platform: gpio
     name: "Switch 1"
@@ -108,7 +127,7 @@ binary_sensor:
       - delayed_on_off: 50ms
 
   - platform: gpio
-    name: "Switch 2"
+    name: " Switch 2"
     pin: GPIO14
     on_press:
       - switch.turn_on: relay_2

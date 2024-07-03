@@ -1,27 +1,27 @@
 substitutions:
-  device_name: "iotcasa-8gang-switch"
-  friendly_name: ""
-  room: ""
-  project_name: "IOTCasa.8 Gang Switch"
-  project_version: "1.2"
-  device_description: "IOTCasa 8 Gang Switch"
-  relay_restore_mode: RESTORE_DEFAULT_OFF
-  wifi_fast_connect: "False"
+  device_name: "iotcasa-8gang-switch"
+  friendly_name: ""
+  room: ""
+  project_name: "IOTCasa.8 Gang Switch"
+  project_version: "1.2"
+  device_description: "IOTCasa 8 Gang Switch"
+  relay_restore_mode: RESTORE_DEFAULT_OFF
+  wifi_fast_connect: "False"
 
 esphome:
-  name: ${device_name}
-  friendly_name: ${friendly_name}
-  area: "${room}"  
-  name_add_mac_suffix: true
-  min_version: 2024.6.0
-  project:
-    name: "${project_name}"
-    version: "${project_version}"
+  name: ${device_name}
+  friendly_name: ${friendly_name}
+  area: "${room}"  
+  name_add_mac_suffix: true
+  min_version: 2024.6.0
+  project:
+    name: "${project_name}"
+    version: "${project_version}"
 
 esp32:
-  board: esp32dev
-  framework:
-    type: arduino
+  board: esp32dev
+  framework:
+    type: arduino
 
 # Enable logging
 logger:
@@ -30,188 +30,188 @@ logger:
 api:
 
 web_server:
-  port: 80
+  port: 80
 
 ota:
-  - platform: esphome
+  - platform: esphome
 
 wifi:
-  ap: {} # This spawns an AP with the device name and mac address with no password.
-  fast_connect: "${wifi_fast_connect}"
+  ap: {} # This spawns an AP with the device name and mac address with no password.
+  fast_connect: "${wifi_fast_connect}"
 
 # wifi:
-#   ssid: !secret wifi_ssid
-#   password: !secret wifi_password
-#   fast_connect: "${wifi_fast_connect}"
-#   # Enable fallback hotspot (captive portal) in case wifi connection fails
-#   ap:
-#     ssid: "${device_name}"
-#     password: "blablabla"
-#     ap_timeout: 2min
-#   reboot_timeout: 5min
+#   ssid: !secret wifi_ssid
+#   password: !secret wifi_password
+#   fast_connect: "${wifi_fast_connect}"
+#   # Enable fallback hotspot (captive portal) in case wifi connection fails
+#   ap:
+#     ssid: "${device_name}"
+#     password: "blablabla"
+#     ap_timeout: 2min
+#   reboot_timeout: 5min
 
 esp32_improv:
-  authorizer: none
+  authorizer: none
 
 captive_portal:
 
 dashboard_import:
-  package_import_url: github://mahipat99/ESPY/8ch.yaml
+  package_import_url: github://mahipat99/ESPY/8ch.yaml
 
 light:
-  - platform: status_led
-    name: "Status LED"
-    disabled_by_default: True
-    pin: GPIO27
+  - platform: status_led
+    name: "Status LED"
+    disabled_by_default: True
+    pin: GPIO27
 
 button:
-  - platform: restart
-    name: "Restart"
-    id: button_restart
+  - platform: restart
+    name: "Restart"
+    id: button_restart
 
-  - platform: factory_reset
-    name: "Factory Reset"
-    id: Reset
-    disabled_by_default: True
+  - platform: factory_reset
+    name: "Factory Reset"
+    id: Reset
+    disabled_by_default: True
 
 switch:
-  - platform: gpio
-    name: "Relay 1"
-    id: relay_1
-    restore_mode: "${relay_restore_mode}"
-    pin: GPIO4
-    icon: mdi:light-switch
-  - platform: gpio
-    name: "Relay 2"
-    id: relay_2
-    restore_mode: "${relay_restore_mode}"
-    pin: GPIO21
-    icon: mdi:lightbulb
-  - platform: gpio
-    name: "Relay 3"
-    id: relay_3
-    restore_mode: "${relay_restore_mode}"
-    pin: GPIO22
-    icon: mdi:ceiling-light-outline
-  - platform: gpio
-    name: "Relay 4"
-    id: relay_4
-    restore_mode: "${relay_restore_mode}"
-    pin: GPIO14
-  - platform: gpio
-    name: "Relay 5"
-    id: relay_5
-    restore_mode: "${relay_restore_mode}"
-    pin: GPIO13
-  - platform: gpio
-    name: "Relay 6"
-    id: relay_6
-    restore_mode: "${relay_restore_mode}"
-    pin: GPIO23
-  - platform: gpio
-    name: "Relay 7"
-    id: relay_7
-    restore_mode: "${relay_restore_mode}"
-    pin: GPIO19
-  - platform: gpio
-    name: " Relay 8"
-    id: relay_8
-    restore_mode: "${relay_restore_mode}"
-    pin: GPIO18
+  - platform: gpio
+    name: "Relay 1"
+    id: relay_1
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO4
+    icon: mdi:light-switch
+  - platform: gpio
+    name: "Relay 2"
+    id: relay_2
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO21
+    icon: mdi:lightbulb
+  - platform: gpio
+    name: "Relay 3"
+    id: relay_3
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO22
+    icon: mdi:ceiling-light-outline
+  - platform: gpio
+    name: "Relay 4"
+    id: relay_4
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO14
+  - platform: gpio
+    name: "Relay 5"
+    id: relay_5
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO13
+  - platform: gpio
+    name: "Relay 6"
+    id: relay_6
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO23
+  - platform: gpio
+    name: "Relay 7"
+    id: relay_7
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO19
+  - platform: gpio
+    name: " Relay 8"
+    id: relay_8
+    restore_mode: "${relay_restore_mode}"
+    pin: GPIO18
 
 binary_sensor:
-  - platform: status
-    name: "Status"
+  - platform: status
+    name: "Status"
 
-  - platform: gpio
-    name: "Button"
-    pin:
-      number: GPIO0
-      mode: input_pullup
-      inverted: True
-    filters:
-      - delayed_on_off: 50ms
-    disabled_by_default: True
-    on_multi_click:
-      - timing:
-          - ON for at most 0.5s
-          - OFF for at least 0.2s
-        then:
-          - switch.toggle: relay_1
-      - timing:
-          - ON for at least 4s
-        then:
-          - button.press: Reset
+  - platform: gpio
+    name: "Button"
+    pin:
+      number: GPIO0
+      mode: input_pullup
+      inverted: True
+    filters:
+      - delayed_on_off: 50ms
+    disabled_by_default: True
+    on_multi_click:
+      - timing:
+          - ON for at most 0.5s
+          - OFF for at least 0.2s
+        then:
+          - switch.toggle: relay_1
+      - timing:
+          - ON for at least 4s
+        then:
+          - button.press: Reset
 
-  - platform: gpio
-    name: "Switch 1"
-    pin: GPIO32
-    on_press:
-      - switch.turn_on: relay_1
-    on_release:
-      - switch.turn_off: relay_1
-    filters:
-      - delayed_on_off: 50ms
-  - platform: gpio
-    name: " Switch 2"
-    pin: GPIO35
-    on_press:
-      - switch.turn_on: relay_2
-    on_release:
-      - switch.turn_off: relay_2
-    filters:
-      - delayed_on_off: 50ms
-  - platform: gpio
-    name: "Switch 3"
-    pin: GPIO33
-    on_press:
-      - switch.turn_on: relay_3
-    on_release:
-       - switch.turn_off: relay_3
-    filters:
-      - delayed_on_off: 50ms
-  - platform: gpio
-    name: "Switch 4"
-    pin: GPIO34
-    on_press:
-       - switch.turn_on: relay_4
-    on_release:
-       - switch.turn_off: relay_4
-    filters:
-      - delayed_on_off: 50ms
-  - platform: gpio
-    name: "Switch 5"
-    pin: GPIO25
-    on_press:
-      - switch.turn_on: relay_5
-    on_release:
-       - switch.turn_off: relay_5
-    filters:
-      - delayed_on_off: 50ms
-  - platform: gpio
-    name: " Switch 6"
-    pin: GPIO39
-    on_press:
-      - switch.turn_on: relay_6
-    on_release:
-      - switch.turn_off: relay_6
-    filters:
-      - delayed_on_off: 50ms
-  - platform: gpio
-    name: "Switch 7"
-    pin: GPIO26
-    on_press:
-      - switch.turn_on: relay_7
-    on_release:
-      - switch.turn_off: relay_7
-    filters:
-      - delayed_on_off: 50ms
-  - platform: gpio
-    name: "Switch 8"
-    pin: GPIO36
-    on_press:
-      - switch.turn_on: relay_8
-    on_release:
-      - switch.turn_off: relay_8
-    filters:
-      - delayed_on_off: 50ms
+  - platform: gpio
+    name: "Switch 1"
+    pin: GPIO32
+    on_press:
+      - switch.turn_on: relay_1
+    on_release:
+      - switch.turn_off: relay_1
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    name: " Switch 2"
+    pin: GPIO35
+    on_press:
+      - switch.turn_on: relay_2
+    on_release:
+      - switch.turn_off: relay_2
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    name: "Switch 3"
+    pin: GPIO33
+    on_press:
+      - switch.turn_on: relay_3
+    on_release:
+       - switch.turn_off: relay_3
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    name: "Switch 4"
+    pin: GPIO34
+    on_press:
+       - switch.turn_on: relay_4
+    on_release:
+       - switch.turn_off: relay_4
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    name: "Switch 5"
+    pin: GPIO25
+    on_press:
+      - switch.turn_on: relay_5
+    on_release:
+       - switch.turn_off: relay_5
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    name: " Switch 6"
+    pin: GPIO39
+    on_press:
+      - switch.turn_on: relay_6
+    on_release:
+      - switch.turn_off: relay_6
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    name: "Switch 7"
+    pin: GPIO26
+    on_press:
+      - switch.turn_on: relay_7
+    on_release:
+      - switch.turn_off: relay_7
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    name: "Switch 8"
+    pin: GPIO36
+    on_press:
+      - switch.turn_on: relay_8
+    on_release:
+      - switch.turn_off: relay_8
+    filters:
+      - delayed_on_off: 50ms
