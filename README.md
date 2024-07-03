@@ -10,12 +10,14 @@ If you are prompted that there is not enough space, you should upgrade `ESP8266_
 
 # Migrating to Tasmota
 
-- Select firmware upgrade, upload `tasmota.bin.gz` and click Update, Please don't choose tasmota.bin!!!
-- Download Tasmota firmware here http://ota.tasmota.com/tasmota/release/tasmota.bin.gz
+- Download the Tasmota firmware for [ESP8266](http://ota.tasmota.com/tasmota/release/tasmota.bin.gz).
+- Select firmware upgrade, upload `tasmota.bin.gz`, and click Update.
 
 # Migrating from Tasmota
 
-- First execute `SetOption78 1` in the console of Tasmota
-- Select firmware upgrade, upload `tasmota-minimal.bin` and click start upgrade
-- Select the firmware upgrade again, upload the firmware of ESPHome and click to start upgrade
-- Download ESPHome firmware here https://github.com/mahipat99/iotcasa-configs/actions
+- First, execute `SetOption78 1` in the console of Tasmota.
+- Download the Tasmota firmware for [ESP8266](http://ota.tasmota.com/tasmota/release/tasmota-minimal.bin.gz).
+- Select firmware upgrade, upload `tasmota-minimal.bin`, and click Start Upgrade.
+- Select firmware upgrade again, upload the firmware for ESPHome, and click Start Upgrade.
+
+## Migrating is currently not possible for ESP32 after SafeBoot is enabled (e.g., after v12)
