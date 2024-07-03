@@ -1,7 +1,7 @@
 substitutions:
   device_name: "iotcasa-2gang-switch"
   friendly_namez: "z"
-  project_name: "IOTCASA.1 Gang Switch"
+  project_name: "IOTCASA.2 Gang Switch"
   project_version: "1.2"
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
@@ -23,11 +23,11 @@ preferences:
 
 api:
 
-ota:
-  - platform: esphome
-
 logger:
   baud_rate: 0
+
+ota:
+  - platform: esphome
 
 mdns:
   disabled: false
@@ -46,42 +46,6 @@ dashboard_import:
 status_led:
   pin:
     number: GPIO2
-
-binary_sensor:
-  - platform: status
-    name: "Status"
-
-  - platform: gpio
-    name: "Button"
-    pin:
-      number: GPIO0
-      mode: input_pullup
-      inverted: true
-    icon: 'mdi:button-pointer'
-    filters:
-      - delayed_on_off: 50ms
-    on_press:
-      - switch.toggle: relay_1
-
-  - platform: gpio
-    name: "Switch 1"
-    pin: GPIO16
-    on_press:
-      - switch.turn_on: relay_1
-    on_release:
-      - switch.turn_off: relay_1
-    filters:
-      - delayed_on_off: 50ms
-
-  - platform: gpio
-    name: "Switch 2"
-    pin: GPIO14
-    on_press:
-      - switch.turn_on: relay_2
-    on_release:
-      - switch.turn_off: relay_2
-    filters:
-      - delayed_on_off: 50ms
 
 sensor:
   - platform: uptime
@@ -114,4 +78,41 @@ switch:
     restore_mode: "${relay_restore_mode}"
     pin: GPIO13
     icon: mdi:lightbulb
+    
 
+binary_sensor:
+  - platform: status
+    name: "Status"
+
+  - platform: gpio
+    name: "Button"
+    disabled_by_default: true
+    pin:
+      number: GPIO0
+      mode: input_pullup
+      inverted: true
+    icon: 'mdi:button-pointer'
+    filters:
+      - delayed_on_off: 50ms
+    on_press:
+      - switch.toggle: relay_1
+
+  - platform: gpio
+    name: "Switch 1"
+    pin: GPIO16
+    on_press:
+      - switch.turn_on: relay_1
+    on_release:
+      - switch.turn_off: relay_1
+    filters:
+      - delayed_on_off: 50ms
+
+  - platform: gpio
+    name: "Switch 2"
+    pin: GPIO14
+    on_press:
+      - switch.turn_on: relay_2
+    on_release:
+      - switch.turn_off: relay_2
+    filters:
+      - delayed_on_off: 50ms
