@@ -1,8 +1,8 @@
 substitutions:
-  device_name: "athom-1gang-switch"
-  project_name: "Athom Technology.1 Gang Switch"
-  project_version: "1.1.1"
-  light_restore_mode: RESTORE_DEFAULT_OFF
+  device_name: "iotcasa-1gang-switch"
+  project_name: "IOTCASA.1 Gang Switch"
+  project_version: "1.2"
+  relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
   name: "${device_name}"
@@ -16,6 +16,7 @@ esphome:
 esp8266:
   board: esp8285
   restore_from_flash: true
+  early_pin_init: false
 
 preferences:
   flash_write_interval: 1min
@@ -109,7 +110,7 @@ light:
     name: "Light"
     id: light1
     output: relay1
-    restore_mode: ${light_restore_mode}
+    restore_mode: ${relay_restore_mode}
     on_turn_on:
       - light.turn_on: led1
     on_turn_off:
