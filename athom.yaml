@@ -1,5 +1,5 @@
 substitutions:
-  device_name: "athom-1gang-switch"
+  device_name: "athzom-1gang-switch"
   project_name: "Athom Technology.1 Gang Switch"
   project_version: "1.1.1"
   light_restore_mode: RESTORE_DEFAULT_OFF
@@ -43,29 +43,41 @@ dashboard_import:
   package_import_url: github://athom-tech/athom-configs/athom-sw01.yaml
 
 binary_sensor:
-  - platform: status
-    name: "Status"
-
-  # Touch Button
-  - platform: gpio
-    pin:
-      inverted: true
-      number: GPIO3
-      mode:
-        input: true
-        pullup: true
-    name: "Button"
-    disabled_by_default: true
-    on_multi_click:
-      - timing:
-          - ON for at most 0.5s
-          - OFF for at least 0.2s
-        then:
-          - light.toggle: light1
-      - timing:
-          - ON for at least 4s
-        then:
-          - button.press: Reset
+  - platform: status
+    name: "Status"
+  - platform: gpio
+    name: "Button"
+    pin:
+      number: GPIO0
+      mode: input_pullup
+      inverted: true
+    icon: 'mdi:button-pointer'
+    filters:
+      - delayed_on_off: 50ms
+    on_press:
+      - switch.toggle: relay_1
+  - platform: gpio
+    name: "Switch 1"
+    pin: GPIO16
+    on_press:
+      then:
+        - switch.turn_on: relay_1
+    on_release:
+      then:
+        - switch.turn_off: relay_1
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    name: " Switch 2"
+    pin: GPIO14
+    on_press:
+      then:
+        - switch.turn_on: relay_2
+    on_release:
+      then:
+        - switch.turn_off: relay_2
+    filters:
+      - delayed_on_off: 50ms
 
 sensor:
   - platform: uptime
@@ -122,16 +134,3 @@ light:
     id: led1
     output: button_led1
     default_transition_length: 500ms
-
-text_sensor:
-  - platform: wifi_info
-    ip_address:
-      name: "IP Address"
-    ssid:
-      name: "Connected SSID"
-    mac_address:
-      name: "Mac Address"
-
-time:
-  - platform: sntp
-    id: sntp_time
