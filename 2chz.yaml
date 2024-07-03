@@ -1,11 +1,10 @@
 substitutions:
   device_name: 2ch
-  friendly_name: 2ch
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: ${device_name}
-  friendly_name: ${friendly_name}
+  name: "${device_name}"
+  friendly_name: "test"
   name_add_mac_suffix: True
 
 esp8266:
