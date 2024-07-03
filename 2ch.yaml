@@ -44,8 +44,8 @@ dashboard_import:
   package_import_url: github://athom-tech/athom-configs/athom-sw01.yaml
 
 status_led:
-  pin:
-    number: GPIO2
+  pin:
+    number: GPIO2
 
 binary_sensor:
   - platform: status
