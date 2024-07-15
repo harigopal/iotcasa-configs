@@ -13,7 +13,7 @@ esphome:
   friendly_name: ${friendly_name}
   area: "${room}"
   comment: ${device_description}
-  name_add_mac_suffix: true
+  name_add_mac_suffix: True
   min_version: 2024.6.0
   project:
     name: "${project_name}"
@@ -24,17 +24,22 @@ esp32:
   framework:
     type: arduino
 
-# Enable logging
-logger:
+preferences:
+  flash_write_interval: 1min
 
-# Enable Home Assistant API
 api:
-
-web_server:
-  port: 80
 
 ota:
   - platform: esphome
+
+logger:
+  level : ERROR
+
+mdns:
+  disabled: False
+
+web_server:
+  port: 80
 
 wifi:
   ap: {} # This spawns an AP with the device name and mac address with no password.
@@ -154,7 +159,7 @@ binary_sensor:
     filters:
       - delayed_on_off: 50ms
   - platform: gpio
-    name: " Switch 2"
+    name: "Switch 2"
     pin: GPIO35
     on_press:
       - switch.turn_on: relay_2
@@ -175,9 +180,9 @@ binary_sensor:
     name: "Switch 4"
     pin: GPIO34
     on_press:
-       - switch.turn_on: relay_4
+      - switch.turn_on: relay_4
     on_release:
-       - switch.turn_off: relay_4
+      - switch.turn_off: relay_4
     filters:
       - delayed_on_off: 50ms
   - platform: gpio
@@ -186,11 +191,11 @@ binary_sensor:
     on_press:
       - switch.turn_on: relay_5
     on_release:
-       - switch.turn_off: relay_5
+      - switch.turn_off: relay_5
     filters:
       - delayed_on_off: 50ms
   - platform: gpio
-    name: " Switch 6"
+    name: "Switch 6"
     pin: GPIO39
     on_press:
       - switch.turn_on: relay_6

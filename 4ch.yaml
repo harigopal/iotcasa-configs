@@ -11,7 +11,7 @@ substitutions:
 esphome:
   name: ${device_name}
   friendly_name: ${friendly_name}
-  area: "${room}"  
+  area: "${room}"
   comment: ${device_description}
   name_add_mac_suffix: True
   min_version: 2024.6.0
@@ -32,7 +32,8 @@ ota:
   - platform: esphome
 
 logger:
-  baud_rate: 0
+  baud_rate : 0
+  level : ERROR
 
 mdns:
   disabled: False
@@ -85,20 +86,17 @@ switch:
     restore_mode: "${relay_restore_mode}"
     pin: GPIO15
     icon: mdi:light-switch
-
   - platform: gpio
     name: "Relay 2"
     id: relay_2
     restore_mode: "${relay_restore_mode}"
     pin: GPIO04
     icon: mdi:lightbulb
-
   - platform: gpio
     name: "Relay 3"
     id: relay_3
     pin: GPIO14
     icon: mdi:ceiling-light-outline
-
   - platform: gpio
     name: "Relay 4"
     id: relay_4
@@ -138,9 +136,8 @@ binary_sensor:
       - switch.turn_off: relay_1
     filters:
       - delayed_on_off: 50ms
-
   - platform: gpio
-    name: " Switch 2"
+    name: "Switch 2"
     pin: GPIO05
     on_press:
       - switch.turn_on: relay_2
@@ -148,9 +145,8 @@ binary_sensor:
       - switch.turn_off: relay_2
     filters:
       - delayed_on_off: 50ms
-
   - platform: gpio
-    name: " Switch 3"
+    name: "Switch 3"
     pin: GPIO016
     on_press:
       - switch.turn_on: relay_3
@@ -158,9 +154,8 @@ binary_sensor:
       - switch.turn_off: relay_3
     filters:
       - delayed_on_off: 50ms
-
   - platform: gpio
-    name: " Switch 4"
+    name: "Switch 4"
     pin: GPIO012
     on_press:
       - switch.turn_on: relay_4

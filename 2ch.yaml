@@ -33,7 +33,7 @@ ota:
   - platform: esphome
 
 logger:
-  baud_rate: 0
+  level : ERROR
 
 mdns:
   disabled: False
@@ -84,7 +84,6 @@ switch:
     restore_mode: "${relay_restore_mode}"
     pin: GPIO12
     icon: mdi:light-switch
-
   - platform: gpio
     name: "Relay 2"
     id: relay_2
@@ -126,9 +125,8 @@ binary_sensor:
       - switch.turn_off: relay_1
     filters:
       - delayed_on_off: 50ms
-
   - platform: gpio
-    name: " Switch 2"
+    name: "Switch 2"
     pin: GPIO14
     on_press:
       - switch.turn_on: relay_2
