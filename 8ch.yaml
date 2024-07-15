@@ -120,7 +120,7 @@ switch:
     restore_mode: "${relay_restore_mode}"
     pin: GPIO19
   - platform: gpio
-    name: " Relay 8"
+    name: "Relay 8"
     id: relay_8
     restore_mode: "${relay_restore_mode}"
     pin: GPIO18
