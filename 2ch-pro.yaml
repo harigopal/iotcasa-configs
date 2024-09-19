@@ -104,14 +104,14 @@ binary_sensor:
 
   - platform: gpio
     name: "Button"
+    internal: false
+    disabled_by_default: true
     pin:
       number: GPIO0
-      mode: input_pullup
       inverted: True
     icon: 'mdi:button-pointer'
     filters:
       - delayed_on_off: 50ms
-    disabled_by_default: True
     on_multi_click:
       - timing:
           - ON for at most 0.5s
@@ -125,7 +125,8 @@ binary_sensor:
 
   - platform: gpio
     name: "Switch 1"
-    internal: true  
+    internal: false
+    disabled_by_default: true
     pin:
       number: GPIO3
       mode: INPUT_PULLUP
@@ -138,7 +139,8 @@ binary_sensor:
       - delayed_on_off: 50ms
   - platform: gpio
     name: "Switch 2"
-    internal: true  
+    internal: false
+    disabled_by_default: true
     pin:
       number: GPIO12
       mode: INPUT_PULLUP
