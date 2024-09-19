@@ -112,7 +112,6 @@ binary_sensor:
     icon: 'mdi:button-pointer'
     filters:
       - delayed_on_off: 50ms
-    disabled_by_default: True
     on_multi_click:
       - timing:
           - ON for at most 0.5s
