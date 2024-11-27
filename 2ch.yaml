@@ -120,17 +120,13 @@ binary_sensor:
     name: "Switch 1"
     pin: GPIO16
     on_press:
-      - switch.turn_on: relay_1
-    on_release:
-      - switch.turn_off: relay_1
+      - switch.toggle: relay_1
     filters:
       - delayed_on_off: 50ms
   - platform: gpio
     name: "Switch 2"
     pin: GPIO14
     on_press:
-      - switch.turn_on: relay_2
-    on_release:
-      - switch.turn_off: relay_2
+      - switch.toggle: relay_2
     filters:
       - delayed_on_off: 50ms
