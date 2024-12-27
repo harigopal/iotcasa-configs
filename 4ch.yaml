@@ -131,35 +131,27 @@ binary_sensor:
     name: "Switch 1"
     pin: GPIO03
     on_press:
-      - switch.turn_on: relay_1
-    on_release:
-      - switch.turn_off: relay_1
+      - switch.toggle: relay_1
     filters:
       - delayed_on_off: 50ms
   - platform: gpio
     name: "Switch 2"
     pin: GPIO05
     on_press:
-      - switch.turn_on: relay_2
-    on_release:
-      - switch.turn_off: relay_2
+      - switch.toggle: relay_2
     filters:
       - delayed_on_off: 50ms
   - platform: gpio
     name: "Switch 3"
     pin: GPIO016
     on_press:
-      - switch.turn_on: relay_3
-    on_release:
-      - switch.turn_off: relay_3
+      - switch.toggle: relay_3
     filters:
       - delayed_on_off: 50ms
   - platform: gpio
     name: "Switch 4"
     pin: GPIO012
     on_press:
-      - switch.turn_on: relay_4
-    on_release:
-      - switch.turn_off: relay_4
+      - switch.toggle: relay_4
     filters:
       - delayed_on_off: 50ms
