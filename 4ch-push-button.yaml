@@ -206,6 +206,7 @@ binary_sensor:
         then:
           - event.trigger:
               id: switch_1_single
+              event_type: single_press
       # Double press - fire ESPHome event
       - timing:
           - ON for at most 1s
@@ -215,6 +216,7 @@ binary_sensor:
         then:
           - event.trigger:
               id: switch_1_double
+              event_type: double_press
       # Long press (hold) - toggle relay directly and fire event
       - timing:
           - ON for at least 2s
@@ -222,6 +224,7 @@ binary_sensor:
           - switch.toggle: relay_1
           - event.trigger:
               id: switch_1_hold
+              event_type: hold
 
   # Enhanced Switch 2 with multiple press types
   - platform: gpio
@@ -238,6 +241,7 @@ binary_sensor:
         then:
           - event.trigger:
               id: switch_2_single
+              event_type: single_press
       # Double press - fire ESPHome event
       - timing:
           - ON for at most 1s
@@ -247,6 +251,7 @@ binary_sensor:
         then:
           - event.trigger:
               id: switch_2_double
+              event_type: double_press
       # Long press (hold) - toggle relay directly and fire event
       - timing:
           - ON for at least 2s
@@ -254,6 +259,7 @@ binary_sensor:
           - switch.toggle: relay_2
           - event.trigger:
               id: switch_2_hold
+              event_type: hold
 
   # Enhanced Switch 3 with multiple press types
   - platform: gpio
@@ -270,6 +276,7 @@ binary_sensor:
         then:
           - event.trigger:
               id: switch_3_single
+              event_type: single_press
       # Double press - fire ESPHome event
       - timing:
           - ON for at most 1s
@@ -279,6 +286,7 @@ binary_sensor:
         then:
           - event.trigger:
               id: switch_3_double
+              event_type: double_press
       # Long press (hold) - toggle relay directly and fire event
       - timing:
           - ON for at least 2s
@@ -286,6 +294,7 @@ binary_sensor:
           - switch.toggle: relay_3
           - event.trigger:
               id: switch_3_hold
+              event_type: hold
 
   # Enhanced Switch 4 with multiple press types
   - platform: gpio
@@ -302,6 +311,7 @@ binary_sensor:
         then:
           - event.trigger:
               id: switch_4_single
+              event_type: single_press
       # Double press - fire ESPHome event
       - timing:
           - ON for at most 1s
@@ -311,6 +321,7 @@ binary_sensor:
         then:
           - event.trigger:
               id: switch_4_double
+              event_type: double_press
       # Long press (hold) - toggle relay directly and fire event
       - timing:
           - ON for at least 2s
@@ -318,3 +329,4 @@ binary_sensor:
           - switch.toggle: relay_4
           - event.trigger:
               id: switch_4_hold
+              event_type: hold
