@@ -3,8 +3,8 @@ substitutions:
   friendly_name: ""
   room: ""
   project_name: "IOTCasa.4 Gang Switch"
-  project_version: "1.3"
-  device_description: "IOTCasa 4 Gang Switch"
+  project_version: "1.4"
+  device_description: "4 Gang switch with configured for push button use"
   relay_restore_mode: RESTORE_DEFAULT_OFF
   wifi_fast_connect: "False"
 
@@ -32,8 +32,8 @@ ota:
   - platform: esphome
 
 logger:
-  baud_rate : 0
-  level : ERROR
+  baud_rate: 0
+  level: ERROR
 
 mdns:
   disabled: False
@@ -45,21 +45,10 @@ wifi:
   ap: {} # This spawns an AP with the device name and mac address with no password.
   fast_connect: "${wifi_fast_connect}"
 
-# wifi:
-#   ssid: !secret wifi_ssid
-#   password: !secret wifi_password
-#   fast_connect: "${wifi_fast_connect}"
-#   # Enable fallback hotspot (captive portal) in case wifi connection fails
-#   ap:
-#     ssid: "${device_name}"
-#     password: "blablabla"
-#     ap_timeout: 2min
-#   reboot_timeout: 5min
-
 captive_portal:
 
 dashboard_import:
-  package_import_url: github://mahipat99/ESPY/4ch.yaml
+  package_import_url: github://harigopal/iotcasa-configs/4ch-push-button.yaml
 
 light:
   - platform: status_led
@@ -85,23 +74,25 @@ switch:
     id: relay_1
     restore_mode: "${relay_restore_mode}"
     pin: GPIO15
-    icon: mdi:light-switch
+    icon: mdi:electric-switch
   - platform: gpio
     name: "Relay 2"
     id: relay_2
     restore_mode: "${relay_restore_mode}"
     pin: GPIO04
-    icon: mdi:lightbulb
+    icon: mdi:electric-switch
   - platform: gpio
     name: "Relay 3"
     id: relay_3
+    restore_mode: "${relay_restore_mode}"
     pin: GPIO14
-    icon: mdi:ceiling-light-outline
+    icon: mdi:electric-switch
   - platform: gpio
     name: "Relay 4"
     id: relay_4
+    restore_mode: "${relay_restore_mode}"
     pin: GPIO13
-    icon: mdi:ceiling-fan
+    icon: mdi:electric-switch
 
 binary_sensor:
   - platform: status
@@ -127,31 +118,178 @@ binary_sensor:
         then:
           - button.press: Reset
 
+  # Enhanced Switch 1 with multiple press types
   - platform: gpio
     name: "Switch 1"
+    id: switch_1
     pin: GPIO03
-    on_press:
-      - switch.toggle: relay_1
     filters:
       - delayed_on_off: 50ms
+    on_multi_click:
+      # Single press - fire Home Assistant event
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.3s
+        then:
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_1"
+                click_type: "single"
+      # Double press - fire Home Assistant event
+      - timing:
+          - ON for at most 1s
+          - OFF for at most 0.5s
+          - ON for at most 1s
+          - OFF for at least 0.3s
+        then:
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_1"
+                click_type: "double"
+      # Long press (hold) - toggle relay directly
+      - timing:
+          - ON for at least 2s
+        then:
+          - switch.toggle: relay_1
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_1"
+                click_type: "hold"
+
+  # Enhanced Switch 2 with multiple press types
   - platform: gpio
     name: "Switch 2"
+    id: switch_2
     pin: GPIO05
-    on_press:
-      - switch.toggle: relay_2
     filters:
       - delayed_on_off: 50ms
+    on_multi_click:
+      # Single press - fire Home Assistant event
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.3s
+        then:
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_2"
+                click_type: "single"
+      # Double press - fire Home Assistant event
+      - timing:
+          - ON for at most 1s
+          - OFF for at most 0.5s
+          - ON for at most 1s
+          - OFF for at least 0.3s
+        then:
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_2"
+                click_type: "double"
+      # Long press (hold) - toggle relay directly
+      - timing:
+          - ON for at least 2s
+        then:
+          - switch.toggle: relay_2
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_2"
+                click_type: "hold"
+
+  # Enhanced Switch 3 with multiple press types
   - platform: gpio
     name: "Switch 3"
+    id: switch_3
     pin: GPIO016
-    on_press:
-      - switch.toggle: relay_3
     filters:
       - delayed_on_off: 50ms
+    on_multi_click:
+      # Single press - fire Home Assistant event
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.3s
+        then:
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_3"
+                click_type: "single"
+      # Double press - fire Home Assistant event
+      - timing:
+          - ON for at most 1s
+          - OFF for at most 0.5s
+          - ON for at most 1s
+          - OFF for at least 0.3s
+        then:
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_3"
+                click_type: "double"
+      # Long press (hold) - toggle relay directly
+      - timing:
+          - ON for at least 2s
+        then:
+          - switch.toggle: relay_3
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_3"
+                click_type: "hold"
+
+  # Enhanced Switch 4 with multiple press types
   - platform: gpio
     name: "Switch 4"
+    id: switch_4
     pin: GPIO012
-    on_press:
-      - switch.toggle: relay_4
     filters:
       - delayed_on_off: 50ms
+    on_multi_click:
+      # Single press - fire Home Assistant event
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.3s
+        then:
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_4"
+                click_type: "single"
+      # Double press - fire Home Assistant event
+      - timing:
+          - ON for at most 1s
+          - OFF for at most 0.5s
+          - ON for at most 1s
+          - OFF for at least 0.3s
+        then:
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_4"
+                click_type: "double"
+      # Long press (hold) - toggle relay directly
+      - timing:
+          - ON for at least 2s
+        then:
+          - switch.toggle: relay_4
+          - homeassistant.event:
+              event: esphome.button_pressed
+              data:
+                device_name: "${device_name}"
+                button: "switch_4"
+                click_type: "hold"
