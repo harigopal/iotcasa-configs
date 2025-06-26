@@ -32,8 +32,8 @@ ota:
   - platform: esphome
 
 logger:
-  baud_rate : 0
-  level : ERROR
+  baud_rate: 0
+  level: ERROR
 
 mdns:
   disabled: False
@@ -95,11 +95,13 @@ switch:
   - platform: gpio
     name: "Relay 3"
     id: relay_3
+    restore_mode: "${relay_restore_mode}"
     pin: GPIO14
     icon: mdi:ceiling-light-outline
   - platform: gpio
     name: "Relay 4"
     id: relay_4
+    restore_mode: "${relay_restore_mode}"
     pin: GPIO13
     icon: mdi:ceiling-fan
 
