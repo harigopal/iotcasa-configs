@@ -72,62 +72,74 @@ event:
   - platform: template
     name: "Switch 1 Single Press"
     id: switch_1_single
-    event_type: "single_press"
+    event_types:
+      - "single_press"
 
   - platform: template
     name: "Switch 1 Double Press"
     id: switch_1_double
-    event_type: "double_press"
+    event_types:
+      - "double_press"
 
   - platform: template
     name: "Switch 1 Hold"
     id: switch_1_hold
-    event_type: "hold"
+    event_types:
+      - "hold"
 
   - platform: template
     name: "Switch 2 Single Press"
     id: switch_2_single
-    event_type: "single_press"
+    event_types:
+      - "single_press"
 
   - platform: template
     name: "Switch 2 Double Press"
     id: switch_2_double
-    event_type: "double_press"
+    event_types:
+      - "double_press"
 
   - platform: template
     name: "Switch 2 Hold"
     id: switch_2_hold
-    event_type: "hold"
+    event_types:
+      - "hold"
 
   - platform: template
     name: "Switch 3 Single Press"
     id: switch_3_single
-    event_type: "single_press"
+    event_types:
+      - "single_press"
 
   - platform: template
     name: "Switch 3 Double Press"
     id: switch_3_double
-    event_type: "double_press"
+    event_types:
+      - "double_press"
 
   - platform: template
     name: "Switch 3 Hold"
     id: switch_3_hold
-    event_type: "hold"
+    event_types:
+      - "hold"
 
   - platform: template
     name: "Switch 4 Single Press"
     id: switch_4_single
-    event_type: "single_press"
+    event_types:
+      - "single_press"
 
   - platform: template
     name: "Switch 4 Double Press"
     id: switch_4_double
-    event_type: "double_press"
+    event_types:
+      - "double_press"
 
   - platform: template
     name: "Switch 4 Hold"
     id: switch_4_hold
-    event_type: "hold"
+    event_types:
+      - "hold"
 
 switch:
   - platform: gpio
