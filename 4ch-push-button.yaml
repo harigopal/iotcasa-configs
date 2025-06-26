@@ -2,7 +2,7 @@ substitutions:
   device_name: "4gang-switch"
   friendly_name: ""
   room: ""
-  project_name: "4 Gang Switch"
+  project_name: "Generic.4 Gang Switch"
   project_version: "1.4"
   device_description: "4 Gang switch configured for push button use"
   relay_restore_mode: RESTORE_DEFAULT_OFF
