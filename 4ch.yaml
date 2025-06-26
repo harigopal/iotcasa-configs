@@ -42,7 +42,8 @@ web_server:
   port: 80
 
 wifi:
-  ap: {} # This spawns an AP with the device name and mac address with no password.
+  ap:
+    password: !secret ap_password
   fast_connect: "${wifi_fast_connect}"
 
 # wifi:
